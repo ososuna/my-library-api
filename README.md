@@ -1,6 +1,6 @@
 # My Library API
 Rest API for My Library
-
+<img width="300" src="https://media.giphy.com/media/ZkwSxuckDvf7q/giphy.gif"/>
 ## Requirements
 
 For building and running the application you need:
