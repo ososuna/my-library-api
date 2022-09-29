@@ -1,7 +1,6 @@
 package dev.ososuna.mylibrary.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
