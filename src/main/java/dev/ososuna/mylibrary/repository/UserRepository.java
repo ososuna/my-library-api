@@ -11,6 +11,7 @@ import dev.ososuna.mylibrary.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
   Optional<User> findByEmailAndActiveTrue(String email);
+  Optional<User> findByEmailAndPasswordAndActiveTrue(String email, String password);
   Optional<User> findByIdAndActiveTrue(Long id);
   List<User> findAllByActiveTrue();
 }

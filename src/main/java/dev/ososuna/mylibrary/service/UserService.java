@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import dev.ososuna.mylibrary.model.LoginRequest;
 import dev.ososuna.mylibrary.model.User;
 import dev.ososuna.mylibrary.repository.UserRepository;
 
@@ -37,6 +38,15 @@ public class UserService {
       );
     });
     return userRepository.save(user);
+  }
+
+  public User loginUser(LoginRequest loginRequest) {
+    return userRepository.findByEmailAndPasswordAndActiveTrue(
+      loginRequest.getEmail(),
+      loginRequest.getPassword()
+    ).orElseThrow(() ->
+      new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid credentials")
+    );
   }
 
   public User deleteUser(Long id) {

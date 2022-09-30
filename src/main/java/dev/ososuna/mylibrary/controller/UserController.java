@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.ososuna.mylibrary.model.LoginRequest;
 import dev.ososuna.mylibrary.model.User;
 import dev.ososuna.mylibrary.service.UserService;
 
@@ -39,6 +40,11 @@ public class UserController {
   @PostMapping
   public ResponseEntity<User> createUser(@RequestBody User user) {
     return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
+  }
+
+  @PostMapping("/login")
+  public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) {
+    return new ResponseEntity<>(userService.loginUser(loginRequest), HttpStatus.OK);
   }
 
   @DeleteMapping("/{id}")
