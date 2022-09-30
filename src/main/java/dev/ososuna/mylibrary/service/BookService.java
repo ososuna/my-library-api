@@ -1,6 +1,7 @@
 package dev.ososuna.mylibrary.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -20,8 +21,11 @@ public class BookService {
     this.bookUtil = bookUtil;
   }
 
-  public List<Book> getAllBooks() {
-    return bookRepository.findAllByActiveTrue();
+  public List<BookDto> getAllBooks() {
+    return bookRepository.findAllByActiveTrue()
+      .stream()
+      .map(bookUtil::transformBookToDto)
+      .collect(Collectors.toList());
   }
 
   public Book getBookById(Long id) {

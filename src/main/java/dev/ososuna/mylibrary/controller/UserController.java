@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,26 +28,31 @@ public class UserController {
     this.userService = userService;
   }
 
+  @CrossOrigin(origins="http://localhost:5173")
   @GetMapping("/all")
   public ResponseEntity<List<User>> getAllUsers() {
     return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
   }
 
+  @CrossOrigin(origins="http://localhost:5173")
   @GetMapping
   public ResponseEntity<User> getUserByEmail(@RequestParam String email) {
     return new ResponseEntity<>(userService.getUserByEmail(email), HttpStatus.OK);
   }
 
+  @CrossOrigin(origins="http://localhost:5173")
   @PostMapping
   public ResponseEntity<User> createUser(@RequestBody User user) {
     return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
   }
 
+  @CrossOrigin(origins="http://localhost:5173")
   @PostMapping("/login")
   public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) {
     return new ResponseEntity<>(userService.loginUser(loginRequest), HttpStatus.OK);
   }
 
+  @CrossOrigin(origins="http://localhost:5173")
   @DeleteMapping("/{id}")
   public ResponseEntity<User> deleteUser(@PathVariable Long id) {
     return new ResponseEntity<>(userService.deleteUser(id), HttpStatus.OK);

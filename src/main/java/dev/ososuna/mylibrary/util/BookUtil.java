@@ -36,6 +36,16 @@ public class BookUtil {
     return book;
   }
 
+  public BookDto transformBookToDto(Book book) {
+    BookDto bookDto = new BookDto();
+    BeanUtils.copyProperties(book, bookDto);
+    if (book.getCustomer() != null) {
+      bookDto.setCustomerId(book.getCustomer().getId());
+    }
+    bookDto.setBookshelfId(book.getBookshelf().getId());
+    return bookDto;
+  }
+
   public Book getBookById(Long id) {
     return bookRepository.findByIdAndActiveTrue(id).orElseThrow(() ->
       new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found")
