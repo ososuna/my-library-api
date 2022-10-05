@@ -5,19 +5,19 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
   datasource:
-      url: jdbc:mysql://localhost:3306/my-library?useSSL=false
+      url: jdbc:mysql://forclass.cwbvgfk36dvj.us-east-1.rds.amazonaws.com/mylibrary?useSSL=false
       username: ${db_user:root}
-      password: ${db_password:root}
+      password: ${db_password:rootroot}
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
     hibernate:
-      ddl-auto: ${db_ddl_auto:none}
+      ddl-auto: ${db_ddl_auto:create}
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
         temp:
           use-jdbc-metadata: false
-        ddl_auto: ${db_ddl_auto:none}
+        ddl_auto: ${db_ddl_auto:create}
         globally_quoted_identifiers: true
     show-sql: false
   sql:

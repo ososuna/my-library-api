@@ -19,6 +19,9 @@ public class Book extends AbstractNamedEntity {
   @Column
   private String author;
 
+  @Column
+  private String description;
+
   @ManyToOne
   @JoinColumn(name="bookshelf_id")
   private Bookshelf bookshelf;

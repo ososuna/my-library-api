@@ -11,6 +11,7 @@ public class BookDto {
   private Long id;
   private String name;
   private String author;
+  private String description;
   private Long bookshelfId;
   private Long customerId;
 }
