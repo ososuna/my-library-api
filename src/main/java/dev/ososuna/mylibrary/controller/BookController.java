@@ -47,9 +47,9 @@ public class BookController {
   }
 
   @CrossOrigin(origins="http://localhost:8100")
-  @PutMapping
-  public ResponseEntity<Book> updateBook(@RequestBody BookDto bookDto) {
-    return new ResponseEntity<Book>(bookService.updateBook(bookDto), HttpStatus.CREATED);
+  @PutMapping("/{id}")
+  public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody BookDto bookDto) {
+    return new ResponseEntity<Book>(bookService.updateBook(id, bookDto), HttpStatus.CREATED);
   }
   
   @CrossOrigin(origins="http://localhost:8100")

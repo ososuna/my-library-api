@@ -3,6 +3,7 @@ package dev.ososuna.mylibrary.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import dev.ososuna.mylibrary.model.Book;
@@ -38,9 +39,10 @@ public class BookService {
     return bookRepository.save(book);
   }
 
-  public Book updateBook(BookDto bookDto) {
-    bookUtil.getBookById(bookDto.getId());
-    var book = bookUtil.transformDtoToBook(bookDto);
+  public Book updateBook(Long id, BookDto bookDto) {
+    var book = bookUtil.getBookById(id);
+    BeanUtils.copyProperties(bookDto, book);
+    book.setId(id);
     book.setActive(true);
     return bookRepository.save(book);
   }
