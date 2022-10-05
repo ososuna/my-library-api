@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,25 +28,31 @@ public class BookController {
     this.bookService = bookService;
   }
   
-  @CrossOrigin(origins="http://localhost:5173")
+  @CrossOrigin(origins="http://localhost:8100")
   @GetMapping("/all")
   public ResponseEntity<List<BookDto>> getAllBooks() {
     return ResponseEntity.ok(bookService.getAllBooks());
   }
   
-  @CrossOrigin(origins="http://localhost:5173")
+  @CrossOrigin(origins="http://localhost:8100")
   @GetMapping("/{id}")
   public ResponseEntity<Book> getBookById(@PathVariable Long id) {
     return ResponseEntity.ok(bookService.getBookById(id));
   }
   
-  @CrossOrigin(origins="http://localhost:5173")
+  @CrossOrigin(origins="http://localhost:8100")
   @PostMapping
   public ResponseEntity<Book> createBook(@RequestBody BookDto bookDto) {
     return new ResponseEntity<Book>(bookService.createBook(bookDto), HttpStatus.CREATED);
   }
+
+  @CrossOrigin(origins="http://localhost:8100")
+  @PutMapping
+  public ResponseEntity<Book> updateBook(@RequestBody BookDto bookDto) {
+    return new ResponseEntity<Book>(bookService.updateBook(bookDto), HttpStatus.CREATED);
+  }
   
-  @CrossOrigin(origins="http://localhost:5173")
+  @CrossOrigin(origins="http://localhost:8100")
   @DeleteMapping("/{id}")
   public ResponseEntity<Book> deleteBook(@PathVariable Long id) {
     return new ResponseEntity<Book>(bookService.deleteBook(id), HttpStatus.CREATED);

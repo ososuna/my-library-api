@@ -38,6 +38,13 @@ public class BookService {
     return bookRepository.save(book);
   }
 
+  public Book updateBook(BookDto bookDto) {
+    bookUtil.getBookById(bookDto.getId());
+    var book = bookUtil.transformDtoToBook(bookDto);
+    book.setActive(true);
+    return bookRepository.save(book);
+  }
+
   public Book deleteBook(Long id) {
     Book book = bookUtil.getBookById(id);
     book.setActive(false);
