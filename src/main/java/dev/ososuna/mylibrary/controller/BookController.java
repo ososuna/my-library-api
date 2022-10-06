@@ -28,31 +28,31 @@ public class BookController {
     this.bookService = bookService;
   }
   
-  @CrossOrigin(origins="http://localhost:8100")
+  @CrossOrigin(origins="*")
   @GetMapping("/all")
   public ResponseEntity<List<BookDto>> getAllBooks() {
     return ResponseEntity.ok(bookService.getAllBooks());
   }
   
-  @CrossOrigin(origins="http://localhost:8100")
+  @CrossOrigin(origins="*")
   @GetMapping("/{id}")
   public ResponseEntity<Book> getBookById(@PathVariable Long id) {
     return ResponseEntity.ok(bookService.getBookById(id));
   }
   
-  @CrossOrigin(origins="http://localhost:8100")
+  @CrossOrigin(origins="*")
   @PostMapping
   public ResponseEntity<Book> createBook(@RequestBody BookDto bookDto) {
     return new ResponseEntity<Book>(bookService.createBook(bookDto), HttpStatus.CREATED);
   }
 
-  @CrossOrigin(origins="http://localhost:8100")
+  @CrossOrigin(origins="*")
   @PutMapping("/{id}")
   public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody BookDto bookDto) {
     return new ResponseEntity<Book>(bookService.updateBook(id, bookDto), HttpStatus.CREATED);
   }
   
-  @CrossOrigin(origins="http://localhost:8100")
+  @CrossOrigin(origins="*")
   @DeleteMapping("/{id}")
   public ResponseEntity<Book> deleteBook(@PathVariable Long id) {
     return new ResponseEntity<Book>(bookService.deleteBook(id), HttpStatus.CREATED);

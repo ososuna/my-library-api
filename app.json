@@ -1,0 +1,8 @@
+{
+  "name": "mylibrary",
+  "buildpacks": [
+    {
+      "url": "heroku/maven"
+    }
+  ]
+}

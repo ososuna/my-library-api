@@ -28,31 +28,31 @@ public class UserController {
     this.userService = userService;
   }
 
-  @CrossOrigin(origins="http://localhost:5173")
+  @CrossOrigin(origins="*")
   @GetMapping("/all")
   public ResponseEntity<List<User>> getAllUsers() {
     return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
   }
 
-  @CrossOrigin(origins="http://localhost:5173")
+  @CrossOrigin(origins="*")
   @GetMapping
   public ResponseEntity<User> getUserByEmail(@RequestParam String email) {
     return new ResponseEntity<>(userService.getUserByEmail(email), HttpStatus.OK);
   }
 
-  @CrossOrigin(origins="http://localhost:5173")
+  @CrossOrigin(origins="*")
   @PostMapping
   public ResponseEntity<User> createUser(@RequestBody User user) {
     return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
   }
 
-  @CrossOrigin(origins="http://localhost:5173")
+  @CrossOrigin(origins="*")
   @PostMapping("/login")
   public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) {
     return new ResponseEntity<>(userService.loginUser(loginRequest), HttpStatus.OK);
   }
 
-  @CrossOrigin(origins="http://localhost:5173")
+  @CrossOrigin(origins="*")
   @DeleteMapping("/{id}")
   public ResponseEntity<User> deleteUser(@PathVariable Long id) {
     return new ResponseEntity<>(userService.deleteUser(id), HttpStatus.OK);
