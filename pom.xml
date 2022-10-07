@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>dev.ososuna</groupId>
-	<artifactId>my-library</artifactId>
+	<artifactId>spring-book</artifactId>
 	<version>0.1.0</version>
-	<name>my-library</name>
-	<description>Demo project for Spring Boot</description>
+	<name>spring-book</name>
+	<description>Spring Book Rest API</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

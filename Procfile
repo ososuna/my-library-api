@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar target/my-library-0.1.0.jar
+web: java -Dserver.port=$PORT -jar target/spring-book-0.1.0.jar

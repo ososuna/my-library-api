@@ -1,6 +1,6 @@
 spring:
   application:
-    name: my-library
+    name: spring-book
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
