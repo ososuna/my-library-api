@@ -1,5 +1,5 @@
-# My Library API
-Rest API for My Library
+# Spring Book
+Rest API for Spring Book
 <br><br>
 <img width="300" src="https://media.giphy.com/media/ZkwSxuckDvf7q/giphy.gif"/>
 ## Requirements
