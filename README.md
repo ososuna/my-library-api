@@ -17,6 +17,25 @@ Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/
 ```shell
 mvn spring-boot:run
 ```
+## Try it out with Docker
+
+First, build the application:
+
+```shell
+mvn package
+```
+
+Then you need to build the Docker image:
+
+```shell
+docker build -t spring-book-api .
+```
+  
+Now you can run the image:
+  
+```shell
+docker run --name spring-book-api -p 3001:3001 spring-book-api
+```
 ## Entity Relationship Diagram
 <img width="500" src="assets/ERD.png"/>
 
