@@ -19,7 +19,7 @@ pipeline {
       }
       steps {
         echo "Building docker image"
-        sh 'docker build -t spring-book-api .'
+        // sh 'docker build -t spring-book-api .'
       }
     }
     stage('Deploy to docker hub') {
