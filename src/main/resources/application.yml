@@ -5,9 +5,9 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
   datasource:
-      url: ${datasource_url:jdbc:mysql://forclass.cwbvgfk36dvj.us-east-1.rds.amazonaws.com/mylibrary?useSSL=false}
+      url: ${datasource_url:jdbc:mysql://localhost/spring-book?useSSL=false}
       username: ${db_user:root}
-      password: ${db_password:rootroot}
+      password: ${db_password:root}
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
     hibernate:
