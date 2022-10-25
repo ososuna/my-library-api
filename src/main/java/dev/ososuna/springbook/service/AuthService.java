@@ -49,13 +49,13 @@ public class AuthService implements UserDetailsService {
     if (userRepository.findByEmailAndActiveTrue(request.getEmail()).isPresent()) {
       throw new ResponseStatusException(
         HttpStatus.BAD_REQUEST,
-        "Correo electrónico ya existente"
+        "Already existing email"
       );
     }
     if (request.getPassword().length() < 6) {
       throw new ResponseStatusException(
         HttpStatus.BAD_REQUEST,
-        "La contraseña debe tener al menos 6 caracteres"
+        "Password must be at least 6 characters long"
       );
     }
     User user = new User();
