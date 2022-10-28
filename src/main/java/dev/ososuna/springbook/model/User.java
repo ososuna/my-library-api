@@ -26,6 +26,9 @@ public class User extends AbstractModificationAttributesEntity {
   @Column(name="last_name")
   private String lastName;
 
+  @Column(name="profile_image_url")
+  private String profileImageUrl;
+
   @Column(name="role")
   private String role;
 
