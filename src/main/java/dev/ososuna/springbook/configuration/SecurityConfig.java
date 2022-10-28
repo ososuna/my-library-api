@@ -29,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private final UserDetailsService userDetailsService;
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
   private final UserService userService;
+  private final PropertiesConfig propertiesConfig;
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -38,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     CustomAuthenticationFilter customAuthenticationFilter =
-      new CustomAuthenticationFilter(authenticationManagerBean(), userService);
+      new CustomAuthenticationFilter(authenticationManagerBean(), userService, propertiesConfig);
     customAuthenticationFilter.setFilterProcessesUrl("/auth/login");
     http
       .cors().and()
@@ -50,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .sessionManagement()
       .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     http.addFilter(customAuthenticationFilter);
-    http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+    http.addFilterBefore(new CustomAuthorizationFilter(propertiesConfig), UsernamePasswordAuthenticationFilter.class);
   }
 
   @Bean

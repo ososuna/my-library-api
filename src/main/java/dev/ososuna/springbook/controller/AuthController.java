@@ -25,6 +25,7 @@ import com.fasterxml.jackson.core.exc.StreamWriteException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import dev.ososuna.springbook.configuration.PropertiesConfig;
 import dev.ososuna.springbook.model.RegisterRequest;
 import dev.ososuna.springbook.model.User;
 import dev.ososuna.springbook.service.AuthService;
@@ -40,10 +41,12 @@ public class AuthController {
   private static final String APPLICATION_JSON_VALUE = "application/json";
   private final AuthService authService;
   private final UserService userService;
+  private final PropertiesConfig propertiesConfig;
 
-  public AuthController(AuthService authService, UserService userService) {
+  public AuthController(AuthService authService, UserService userService, PropertiesConfig propertiesConfig) {
     this.authService = authService;
     this.userService = userService;
+    this.propertiesConfig = propertiesConfig;
   }
 
   @PostMapping(value="/register")
@@ -58,7 +61,7 @@ public class AuthController {
       String refresh_token = authorizationHeader.substring("Bearer ".length());
       if (refresh_token != null && refresh_token.length() > 0) {
         try {
-          Algorithm algorithm = Algorithm.HMAC256("tH1z1lsMyhztI@P14tF0rM@".getBytes());
+          Algorithm algorithm = Algorithm.HMAC256(propertiesConfig.getJwtSecret().getBytes());
           JWTVerifier verifier = JWT.require(algorithm).build();
           DecodedJWT decodedJWT = verifier.verify(refresh_token);
           String email = decodedJWT.getSubject();
@@ -66,7 +69,7 @@ public class AuthController {
           
           String access_token = com.auth0.jwt.JWT.create()
             .withSubject(user.getEmail())
-            .withExpiresAt(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000)) // 24 hours
+            .withExpiresAt(new Date(System.currentTimeMillis() + propertiesConfig.getJwtAccessExpirationMs())) // 24 hours
             .withIssuer(request.getRequestURL().toString())
             .withClaim("roles", user.getRole().toString())
             .sign(algorithm);

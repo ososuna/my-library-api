@@ -14,35 +14,27 @@ public class BookUtil {
   
   private final BookRepository bookRepository;
   private final UserUtil userUtil;
-  private final BookshelfUtil bookshelfUtil;
 
-  public BookUtil(
-    BookRepository bookRepository,
-    UserUtil userUtil,
-    BookshelfUtil bookshelfUtil
-  ) {
+  public BookUtil(BookRepository bookRepository, UserUtil userUtil) {
     this.bookRepository = bookRepository;
     this.userUtil = userUtil;
-    this.bookshelfUtil = bookshelfUtil;
   }
 
   public Book transformDtoToBook(BookDto bookDto) {
     Book book = new Book();
     BeanUtils.copyProperties(bookDto, book);
-    if (bookDto.getCustomerId() != null) {
-      book.setCustomer(userUtil.getUserById(bookDto.getCustomerId()));
+    if (bookDto.getUserId() != null) {
+      book.setUser(userUtil.getUserById(bookDto.getUserId()));
     }
-    book.setBookshelf(bookshelfUtil.getBookshelfById(bookDto.getBookshelfId()));
     return book;
   }
 
   public BookDto transformBookToDto(Book book) {
     BookDto bookDto = new BookDto();
     BeanUtils.copyProperties(book, bookDto);
-    if (book.getCustomer() != null) {
-      bookDto.setCustomerId(book.getCustomer().getId());
+    if (book.getUser() != null) {
+      bookDto.setUserId(book.getUser().getId());
     }
-    bookDto.setBookshelfId(book.getBookshelf().getId());
     return bookDto;
   }
 
