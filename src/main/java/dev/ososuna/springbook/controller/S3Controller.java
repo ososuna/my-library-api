@@ -1,5 +1,7 @@
 package dev.ososuna.springbook.controller;
 
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +23,7 @@ public class S3Controller {
   }
 
   @PostMapping("/upload")
-  public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile multipartFile) {
+  public ResponseEntity<Map<String, String>> uploadFile(@RequestParam("file") MultipartFile multipartFile) {
     return new ResponseEntity<>(s3Service.uploadFile(multipartFile), HttpStatus.CREATED);
   }
-
 }

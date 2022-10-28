@@ -23,7 +23,7 @@ public class S3Service {
     this.propertiesConfig = propertiesConfig;
   }
 
-  public String uploadFile(MultipartFile file) {
+  public Map<String, String> uploadFile(MultipartFile file) {
     
     if (file.isEmpty()) {
       throw new IllegalStateException("Cannot upload empty file");
@@ -33,16 +33,21 @@ public class S3Service {
     metadata.put("Content-Type", file.getContentType());
     metadata.put("Content-Length", String.valueOf(file.getSize()));
     
-    String path = String.format("%s/%s", propertiesConfig.getAwsBucket(), UUID.randomUUID());
+    UUID folderName = UUID.randomUUID();
+    String path = String.format("%s/%s", propertiesConfig.getAwsBucket(), folderName);
     String fileName = String.format("%s", file.getOriginalFilename());
-    
-    String message = String.format("File %s uploaded successfully", fileName);
     
     try {
       s3Util.uploadFile(path, fileName, Optional.of(metadata), file.getInputStream());
     } catch (IOException e) {
       throw new IllegalStateException("Failed to upload file", e);
     }
-    return message;
+
+    Map<String, String> fileUploaded = new HashMap<>();
+    fileUploaded.put("message", String.format("File %s uploaded successfully", fileName));
+    fileUploaded.put("path", path);
+    fileUploaded.put("url", String.format("%s/%s/%s", propertiesConfig.getS3BaseUrl(), folderName.toString(), fileName));
+    fileUploaded.put("fileName", fileName);
+    return fileUploaded;
   }
 }

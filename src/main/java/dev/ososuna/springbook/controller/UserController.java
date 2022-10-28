@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import dev.ososuna.springbook.model.LoginRequest;
 import dev.ososuna.springbook.model.User;
@@ -49,8 +51,8 @@ public class UserController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
-    return new ResponseEntity<>(userService.updateUser(id, user), HttpStatus.OK);
+  public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestPart User user, @RequestPart(name = "file", required = false) MultipartFile file) {
+    return new ResponseEntity<>(userService.updateUser(id, user, file), HttpStatus.OK);
   }
 
   @DeleteMapping("/{id}")

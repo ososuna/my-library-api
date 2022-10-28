@@ -36,3 +36,4 @@ springbook:
     awsSecretKey: ${awsSecretKey:}
     awsRegion: ${awsRegion:}
     awsBucket: ${awsBucket:}
+    s3BaseUrl: ${s3BaseUrl:}

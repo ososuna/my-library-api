@@ -1,10 +1,13 @@
 package dev.ososuna.springbook.service;
 
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import dev.ososuna.springbook.model.LoginRequest;
@@ -16,10 +19,12 @@ public class UserService {
   
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
+  private final S3Service s3Service;
 
-  public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+  public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, S3Service s3Service) {
     this.userRepository = userRepository;
     this.passwordEncoder = passwordEncoder;
+    this.s3Service = s3Service;
   }
 
   public List<User> getAllUsers() {
@@ -53,19 +58,32 @@ public class UserService {
     );
   }
 
-  public User updateUser(Long id, User user) {
-    return userRepository.findByIdAndActiveTrue(id)
-      .map(foundUser -> {
-        foundUser.setFirstName(user.getFirstName());
-        foundUser.setLastName(user.getLastName());
-        foundUser.setEmail(user.getEmail());
-        foundUser.setAge(user.getAge());
-        foundUser.setProfileImageUrl(user.getProfileImageUrl());
-        return userRepository.save(foundUser);
-      })
+  public User updateUser(Long id, User user, MultipartFile file) {
+
+    User userToUpdate = userRepository.findByIdAndActiveTrue(id)
       .orElseThrow(() ->
         new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
       );
+    
+    if (!userToUpdate.getEmail().equals(user.getEmail())) {
+      userRepository.findByEmailAndActiveTrue(user.getEmail()).ifPresent(action -> {
+        throw new ResponseStatusException(
+          HttpStatus.BAD_REQUEST,
+          "Already existing email"
+        );
+      });
+    }
+
+    if (file != null) {
+      Map<String, String> fileUploaded = s3Service.uploadFile(file);
+      user.setProfileImageUrl(fileUploaded.get("url"));
+    } else {
+      user.setProfileImageUrl(userRepository.findById(id).get().getProfileImageUrl());
+    }
+
+    BeanUtils.copyProperties(user, userToUpdate, "id", "password", "active", "role", "createdBy", "createdBy", "createdDate", "updatedDate");
+    
+    return userRepository.save(userToUpdate);
   }
 
   public User deleteUser(Long id) {
