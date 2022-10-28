@@ -30,8 +30,8 @@ server:
 springbook:
   api:
     jwtSecret: ${jwtSecret:}
-    jwtAccessExpirationMs: ${jwtExpirationMs:}
-    jwtRefreshExpirationMs: ${jwtExpirationMs:}
+    jwtAccessExpirationMs: ${jwtAccessExpirationMs:}
+    jwtRefreshExpirationMs: ${jwtRefreshExpirationMs:}
     awsAccessKey: ${awsAccessKey:}
     awsSecretKey: ${awsSecretKey:}
     awsRegion: ${awsRegion:}
