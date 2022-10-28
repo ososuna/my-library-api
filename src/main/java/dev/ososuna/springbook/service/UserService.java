@@ -53,6 +53,21 @@ public class UserService {
     );
   }
 
+  public User updateUser(Long id, User user) {
+    return userRepository.findByIdAndActiveTrue(id)
+      .map(foundUser -> {
+        foundUser.setFirstName(user.getFirstName());
+        foundUser.setLastName(user.getLastName());
+        foundUser.setEmail(user.getEmail());
+        foundUser.setAge(user.getAge());
+        foundUser.setProfileImageUrl(user.getProfileImageUrl());
+        return userRepository.save(foundUser);
+      })
+      .orElseThrow(() ->
+        new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
+      );
+  }
+
   public User deleteUser(Long id) {
     var user = userRepository.findById(id).orElseThrow(() ->
       new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
