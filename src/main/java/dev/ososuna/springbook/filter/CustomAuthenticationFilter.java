@@ -22,6 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import dev.ososuna.springbook.configuration.PropertiesConfig;
 import dev.ososuna.springbook.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,13 +33,16 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
   private static final String INVALID_CREDENTIALS_MSG = "Invalid email or password";
   private final AuthenticationManager authenticationManager;
   private final UserService userService;
+  private final PropertiesConfig propertiesConfig;
 
   public CustomAuthenticationFilter(
     AuthenticationManager authenticationManager,
-    UserService userService
+    UserService userService,
+    PropertiesConfig propertiesConfig
   ) {
     this.authenticationManager = authenticationManager;
     this.userService = userService;
+    this.propertiesConfig = propertiesConfig;
   }
 
   @Override
@@ -67,18 +71,18 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
       Authentication authentication) throws IOException, ServletException {
     User user = (User) authentication.getPrincipal();
 
-    Algorithm algorithm = Algorithm.HMAC256("tH1z1lsMyhztI@P14tF0rM@".getBytes());
+    Algorithm algorithm = Algorithm.HMAC256(propertiesConfig.getJwtSecret().getBytes());
     
     String access_token = com.auth0.jwt.JWT.create()
       .withSubject(user.getUsername())
-      .withExpiresAt(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000)) // 24 hours
+      .withExpiresAt(new Date(System.currentTimeMillis() + propertiesConfig.getJwtAccessExpirationMs())) // 24 hours
       .withIssuer(request.getRequestURL().toString())
       .withClaim("roles", user.getAuthorities().toString())
       .sign(algorithm);
     
     String refresh_token = com.auth0.jwt.JWT.create()
       .withSubject(user.getUsername())
-      .withExpiresAt(new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000)) // 1 week
+      .withExpiresAt(new Date(System.currentTimeMillis() + propertiesConfig.getJwtRefreshExpirationMs())) // 1 week
       .withIssuer(request.getRequestURL().toString())
       .withClaim("roles", user.getAuthorities().toString())
       .sign(algorithm);
