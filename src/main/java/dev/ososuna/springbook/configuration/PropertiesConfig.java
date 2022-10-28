@@ -20,4 +20,5 @@ public class PropertiesConfig {
   private String awsSecretKey;
   private String awsRegion;
   private String awsBucket;
+  private String s3BaseUrl;
 }
