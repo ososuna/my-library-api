@@ -23,10 +23,6 @@ public class Book extends AbstractNamedEntity {
   private String description;
 
   @ManyToOne
-  @JoinColumn(name="bookshelf_id")
-  private Bookshelf bookshelf;
-
-  @ManyToOne
-  @JoinColumn(name="customer_id")
-  private User customer;
+  @JoinColumn(name="user_id")
+  private User user;
 }
