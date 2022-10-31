@@ -23,6 +23,18 @@ spring:
   sql:
     init:
       platform: mysql
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${mailUsername:}
+    password: ${mailPassword:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
 server:
   port: ${app_port:3001}
   servlet:
