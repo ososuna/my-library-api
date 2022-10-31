@@ -21,4 +21,6 @@ public class PropertiesConfig {
   private String awsRegion;
   private String awsBucket;
   private String s3BaseUrl;
+  private String mailUsername;
+  private String mailPassword;  
 }
