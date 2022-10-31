@@ -41,3 +41,6 @@ docker run --name spring-book-api -p 3001:3001 spring-book-api
 
 ## Class Diagram
 <img width="500" src="assets/Class_Diagram.png"/>
+
+## Architecture Diagram
+<img width="500" src="assets/Architecture_Diagram.png"/>
