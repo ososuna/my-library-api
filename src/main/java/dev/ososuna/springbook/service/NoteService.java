@@ -28,6 +28,13 @@ public class NoteService {
       .collect(Collectors.toList());
   }
 
+  public List<NoteDto> getNotesByBook(Long bookId) {
+    return noteRepository.findAllByActiveTrueAndBookIdIs(bookId)
+      .stream()
+      .map(noteUtil::transformNoteToDto)
+      .collect(Collectors.toList());
+  }
+
   public Note createNote(NoteDto noteDto) {
     var book = noteRepository.save(noteUtil.transformDtoToNote(noteDto));
     book.setActive(true);

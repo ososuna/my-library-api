@@ -10,4 +10,5 @@ import dev.ososuna.springbook.model.Note;
 @Repository
 public interface NoteRepository extends JpaRepository<Note, Long> {
   List<Note> findAllByActiveTrue();
+  List<Note> findAllByActiveTrueAndBookIdIs(Long bookId);
 }
