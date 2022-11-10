@@ -29,6 +29,13 @@ public class BookService {
       .collect(Collectors.toList());
   }
 
+  public List<BookDto> getBooksByUser(Long userId) {
+    return bookRepository.findAllByActiveTrueAndUserIdIs(userId)
+      .stream()
+      .map(bookUtil::transformBookToDto)
+      .collect(Collectors.toList());
+  }
+
   public Book getBookById(Long id) {
     return bookUtil.getBookById(id);
   }

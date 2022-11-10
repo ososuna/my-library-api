@@ -10,6 +10,7 @@ import dev.ososuna.springbook.model.Book;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
-  Optional<Book> findByIdAndActiveTrue(Long id);
   List<Book> findAllByActiveTrue();
+  List<Book> findAllByActiveTrueAndUserIdIs(Long bookId);
+  Optional<Book> findByIdAndActiveTrue(Long id);
 }
