@@ -1,5 +1,7 @@
 package dev.ososuna.springbook.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -19,6 +21,9 @@ public class Note extends AbstractNamedEntity {
 
   @Column
   private String description;
+  
+  @Column
+  private LocalDate date;
 
   @ManyToOne
   @JoinColumn(name="book_id")
