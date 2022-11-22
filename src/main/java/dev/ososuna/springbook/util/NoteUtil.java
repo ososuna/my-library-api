@@ -1,10 +1,13 @@
 package dev.ososuna.springbook.util;
 
+import java.time.LocalDate;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 import dev.ososuna.springbook.model.Note;
+import dev.ososuna.springbook.model.dto.NewNoteDto;
 import dev.ososuna.springbook.model.dto.NoteDto;
 import dev.ososuna.springbook.repository.NoteRepository;
 
@@ -32,6 +35,17 @@ public class NoteUtil {
     note.setDescription(noteDto.getDescription());
     note.setDate(noteDto.getDate());
     note.setBook(book);
+    return note;
+  }
+
+  public Note transformNewNoteDtoToNote(NewNoteDto newNoteDto) {
+    var book = bookUtil.getBookById(newNoteDto.getBookId());
+    var note = new Note();
+    note.setName(newNoteDto.getName());
+    note.setDescription(newNoteDto.getDescription());
+    note.setBook(book);
+    note.setDate(LocalDate.now());
+    note.setActive(true);
     return note;
   }
 

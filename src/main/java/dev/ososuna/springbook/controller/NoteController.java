@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.ososuna.springbook.model.Note;
+import dev.ososuna.springbook.model.dto.NewNoteDto;
 import dev.ososuna.springbook.model.dto.NoteDto;
 import dev.ososuna.springbook.model.dto.UpdateNoteDto;
 import dev.ososuna.springbook.service.NoteService;
@@ -33,14 +34,19 @@ public class NoteController {
     return new ResponseEntity<>(noteService.getAllNotes(), HttpStatus.OK);
   }
 
-  @GetMapping("/{bookId}")
+  @GetMapping("/{id}")
+  public ResponseEntity<Note> getNoteById(@PathVariable Long id) {
+    return new ResponseEntity<>(noteService.getNoteById(id), HttpStatus.OK);
+  }
+
+  @GetMapping("/book/{bookId}")
   public ResponseEntity<List<NoteDto>> getNotesByBook(@PathVariable Long bookId) {
     return new ResponseEntity<>(noteService.getNotesByBook(bookId), HttpStatus.OK);
   }
 
   @PostMapping
-  public ResponseEntity<Note> createNote(@RequestBody NoteDto noteDto) {
-    return new ResponseEntity<>(noteService.createNote(noteDto), HttpStatus.CREATED);
+  public ResponseEntity<Note> createNote(@RequestBody NewNoteDto newNoteDto) {
+    return new ResponseEntity<>(noteService.createNote(newNoteDto), HttpStatus.CREATED);
   }
 
   @PutMapping("/{id}")
