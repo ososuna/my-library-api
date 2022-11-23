@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import dev.ososuna.springbook.model.Note;
+import dev.ososuna.springbook.model.dto.NewNoteDto;
 import dev.ososuna.springbook.model.dto.NoteDto;
 import dev.ososuna.springbook.model.dto.UpdateNoteDto;
 import dev.ososuna.springbook.repository.NoteRepository;
@@ -30,6 +31,10 @@ public class NoteService {
       .collect(Collectors.toList());
   }
 
+  public Note getNoteById(Long id) {
+    return noteUtil.getNoteById(id);
+  }
+
   public List<NoteDto> getNotesByBook(Long bookId) {
     return noteRepository.findAllByActiveTrueAndBookIdIs(bookId)
       .stream()
@@ -37,11 +42,9 @@ public class NoteService {
       .collect(Collectors.toList());
   }
 
-  public Note createNote(NoteDto noteDto) {
-    var book = noteUtil.transformDtoToNote(noteDto);
-    book.setActive(true);
-    book.setDate(LocalDate.now());
-    return noteRepository.save(book);
+  public Note createNote(NewNoteDto newNoteDto) {
+    var note = noteUtil.transformNewNoteDtoToNote(newNoteDto);
+    return noteRepository.save(note);
   }
 
   public NoteDto updateNote(Long id, UpdateNoteDto updateNoteDto) {
