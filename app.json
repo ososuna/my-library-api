@@ -1,8 +1,0 @@
-{
-  "name": "spring-book",
-  "buildpacks": [
-    {
-      "url": "heroku/maven"
-    }
-  ]
-}
