@@ -26,8 +26,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${mailUsername:ososuna@thenewpiedpiper.com}
-    password: ${mailPassword:fcqemnxrzjmletew}
+    username: ${mailUsername:}
+    password: ${mailPassword:}
     properties:
       mail:
         smtp:
@@ -47,11 +47,11 @@ servlet:
     max-request-size: 10MB
 springbook:
   api:
-    jwtSecret: ${jwtSecret:TH1S4VeRYs3cr3tSpr1nGb00k@P1k3Y}
-    jwtAccessExpirationMs: ${jwtAccessExpirationMs:86400000}
-    jwtRefreshExpirationMs: ${jwtRefreshExpirationMs:604800000}
-    awsAccessKey: ${awsAccessKey:AKIAYZ5IZJSOO3KTWSWG}
-    awsSecretKey: ${awsSecretKey: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}
-    awsRegion: ${awsRegion:us-east-1}
-    awsBucket: ${awsBucket:spring-book}
-    s3BaseUrl: ${s3BaseUrl:https://spring-book.s3.amazonaws.com}
+    jwtSecret: ${jwtSecret:}
+    jwtAccessExpirationMs: ${jwtAccessExpirationMs:}
+    jwtRefreshExpirationMs: ${jwtRefreshExpirationMs:}
+    awsAccessKey: ${awsAccessKey:}
+    awsSecretKey: ${awsSecretKey:}
+    awsRegion: ${awsRegion:}
+    awsBucket: ${awsBucket:}
+    s3BaseUrl: ${s3BaseUrl:}
